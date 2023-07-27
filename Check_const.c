@@ -1,42 +1,42 @@
 #include "shell.h"
 /**
- * check_built_ins - Find the right funcs that need for execution.
- * @vstr: The name of the funcs that is needed also vargs[0].
+ * check_built_ins - Finds the right function needed for execution.
+ * @rts: The name of the function that is needed also args[0].
  * Return: Upon sucess a pointer to a void function. Otherwise NULL.
  */
-void (*check_built_ins(char *vstr))(char **, char *)
+void (*check_built_ins(char *rts))(char **, char *)
 {
-	int j;
+        int j;
 
-	built_in_t build_in[] = {
-		{"our_unseten_v_i", our_unseten_v_i},
-		{"ourseten_v_i", ourseten_v_i},
-		{"ourext_i", ourext_i},
-		{"ourenv_i", ourenv_i},
-		{"ourcod_i", ourcod_i},
-		{NULL, NULL}
-	};
+        built_in_t buildin[] = {
+                {"unsetenv", our_unsetenv},
+                {"setenv", our_setenv},
+                {"exit", our_exit},
+                {"env", our_env},
+                {"cod", our_cod},
+                {NULL, NULL}
+        };
 
-	for (i = 0; build_in[i].built != NULL; j++)
-	{
-		if (_strcmps_i(vstr, build_in[j].built) == 0)
-		{
-			return (build_in[j].func);
-		}
-	}
-	return (NULL);
+        for (j = 0; buildin[j].built != NULL; j++)
+        {
+                if (_strcmp_(rts, buildin[j].built) == 0)
+                {
+                        return (buildin[j].func);
+                }
+        }
+        return (NULL);
 }
 
 /**
- * is_built_in_t - Checks for built_in funcs.
- * @vargs: the command and its flags
- * @i_line: A string representing the input from the executer.
+ * is_built_in - Checks for built in functions.
+ * @argss: the command and its flags
+ * @eline: A string represents the input from the user.
  * Return: If function is found 0. Otherwise -1.
  */
-int is_built_in(char **vargs, char *i_line)
+int is_built_in(char **argss, char *eline)
 {
-	if (check_built_ins(vargs[0]) == NULL)
-		return (0);
-	check_built_ins(vargs[0])(vargs, i_line);
-	return (1);
+        if (check_built_ins(argss[0]) == NULL)
+                return (0);
+        check_built_ins(argss[0])(argss, eline);
+        return (1);
 }

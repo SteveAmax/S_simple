@@ -1,116 +1,115 @@
 #include "shell.h"
 
 /**
- * _isdigit - checks for a digits
- *@c: num
+ * _isdigit_ - checks the code digit
+ *@y: num
  * Return: Always 0.
  */
 
-int _isdigit(int c)
+int _isdigit_(int y)
 {
-	if (c <= 57 && c >= 48)
-		return (1);
-	return (0);
+        if (y <= 57 && y >= 48)
+                return (1);
+        return (0);
 }
 
 /**
- * set_env - sets an environment variable with a value.
+ * set_env - sets an envi variable with a value.
  * if it exist it modifies it if not it sets it.
- * @name: name of the variable.
- * @value: the value to set to the var name.
+ * @na: name of the variable.
+ * @valu: the value to set to the var name.
  */
 
-void set_env(char *yname, char *xvalue_i)
+void set_env(char *na, char *valu)
 {
-	int index_n;
-	char *vstr;
-	char **en_vp = environ;
-	int name_rlen, value_rlen, rlen;
+        int index;
+        char *rts;
+        char **envo = environ;
+        int na_rlen, valu_rlen, rlen;
 
-	if (!yname || !xvalue_i)
-	{
-		perror("setenv()");
-		return;
-	}
-	name_len = _strlen_i(yname);
-	value_len = _strlen_i(xvalue_i);
-	len = name_rlen + value_rlen + 2;
+        if (!na || !valu)
+        {
+                perror("setenv()");
+                return;
+        }
+        na_rlen = _strlen(na);
+        valu_rlen = _strlen(valu);
+        rlen = na_rlen + valu_rlen + 2;
 
-	vstr = malloc(rlen * sizeof(char));
-	if (!vstr)
-	{
-		perror("Alloc fails");
-		return;
-	}
-	_str_copy_i(vstr, yname), _str_cat_i(vstr, "="), _str_cat_i(vstr, xvalue_i);
-	index = path_index_finder(yname);
-	if (index_n != -1)
-		environ[index_n] = vstr;
-	else
-	{
-		while (*en_vp)
-			en_vp++;
-		*en_vp = vstr;
-		en_vp++;
-		*en_vp = NULL;
-	}
+        rts = malloc(rlen * sizeof(char));
+        if (!rts)
+        {
+                perror("Alloc fails");
+                return;
+        }
+        _strcpy_(rts, na), _strcat_(rts, "="), _strcat_(rts, valu);
+        index = find_path_index(na);
+        if (index != -1)
+                environ[index] = rts;
+        else
+        {
+                while (*envo)
+                        envo++;
+                *envo = rts;
+                envo++;
+                *envo = NULL;
+        }
 }
 
 /**
- * _atoi - convert a string to an integer
- * @s: str
+ * _atoi - converture of string to an integer
+ * @v: string
  * Return: 0 if no number found and number otherwise
  */
 
-int _atoi(char *s)
+int _atoi(char *v)
 {
-	int ix, di, nx, rlen, g, digit_i;
+        int i, ds, ne, elen, ff, sdigit;
 
-	ix = 0;
-	di = 0;
-	nx = 0;
-	rlen = 0;
-	g = 0;
-	digit_i = 0;
+        i = 0;
+        ds = 0;
+        ne = 0;
+        elen = 0;
+        ff = 0;
+        sdigit = 0;
 
-	while (s[rlen] != '\0')
-		rlen++;
+        while (v[elen] != '\0')
+                elen++;
 
-	while (ix < rlen && g == 0)
-	{
-		if (s[ix] == '-')
-			++di;
+        while (i < elen && ff == 0)
+        {
+                if (v[i] == '-')
+                        ++ds;
 
-		if (s[ix] >= '0' && s[ix] <= '9')
-		{
-			digit_i = s[ix] - '0';
-			if (di % 2)
-				digit_i = -digit_i;
-			n = n * 10 + digit_i;
-			g = 1;
-			if (s[ix + 1] < '0' || s[ix + 1] > '9')
-				break;
-			g = 0;
-		}
-		ix++;
-	}
-	if (g == 0)
-		return (0);
+                if (v[i] >= '0' && v[i] <= '9')
+                {
+                        sdigit = v[i] - '0';
+                        if (ds % 2)
+                                sdigit = -sdigit;
+                        ne = ne * 10 + sdigit;
+                        ff = 1;
+                        if (v[i + 1] < '0' || v[i + 1] > '9')
+                                break;
+                        ff = 0;
+                }
+                i++;
+        }
+        if (ff == 0)
+                return (0);
 
-	return (n);
+        return (ne);
 }
 
 /**
  * _isupper - checks for uppercase character
- * @c: char
+ * @ch: char
  * Return: Always 0.
  */
 
-int _isupper(int c)
+int _isupper(int ch)
 {
-	if (c <= 90 && c >= 65)
-		return (1);
+        if (ch <= 90 && ch >= 65)
+                return (1);
 
-	return (0);
+        return (0);
 }
-
